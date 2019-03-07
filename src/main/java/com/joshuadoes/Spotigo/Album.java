@@ -11,5 +11,6 @@ public class Album {
 	public String artURL;
 	public String albumID;
 	public String uri;
+	public SpotigoDate date;
 
 }

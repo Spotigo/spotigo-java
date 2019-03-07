@@ -12,7 +12,7 @@ public class SpotigoTrackInfo {
 	public long trackNumber;
 	public long discNumber;
 	public long duration;
-//	public SpotigoAlbumInfo album;
+	public String albumGid;
 	public ArrayList<SpotigoArtistInfo> artist;
 	
 	private JSONObject json;
@@ -29,6 +29,9 @@ public class SpotigoTrackInfo {
 		for (Object a : alist) {
 			this.artist.add(new SpotigoArtistInfo((JSONObject) a));
 		}
+
+		JSONObject albumObject = (JSONObject) json.get("album");
+		this.albumGid = (String) albumObject.get("gid"); 
 		
 		this.json = json;
 	}

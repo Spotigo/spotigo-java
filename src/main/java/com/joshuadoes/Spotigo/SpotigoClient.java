@@ -47,6 +47,7 @@ public class SpotigoClient {
 		data.uri = String.format("spotify:album:%s", albumID);
 		data.artURL = embed.thumbnailURL;
 		data.discs = new ArrayList<Disc>();
+		data.date = info.date;
 		
 		for(SpotigoDiscInfo dinfo : info.discs) {
 			data.discs.add(this.getDiscInfo(dinfo));
@@ -71,6 +72,7 @@ public class SpotigoClient {
 		data.uri = String.format("spotify:album:%s", albumID);
 		data.artURL = embed.thumbnailURL;
 		data.discs = new ArrayList<Disc>();
+		data.date = info.date;
 		
 		for(SpotigoDiscInfo dinfo : info.discs) {
 			data.discs.add(this.getDiscInfo(dinfo));
@@ -108,6 +110,9 @@ public class SpotigoClient {
 			data.artists.add(this.getArtistInfo(new SpotigoGID(ainfo.gid)));
 		}
 		data.artist = data.artists.get(0).name;
+		data.albumGid = info.albumGid;
+		data.number = info.trackNumber;
+		data.discNumber = info.discNumber;
 		
 		return data;
 	}
@@ -135,6 +140,9 @@ public class SpotigoClient {
 			data.artists.add(this.getArtistInfo(new SpotigoGID(ainfo.gid)));
 		}
 		data.artist = data.artists.get(0).name;
+		data.albumGid = info.albumGid;
+		data.number = info.trackNumber;
+		data.discNumber = info.discNumber;
 		
 		return data;
 	}
