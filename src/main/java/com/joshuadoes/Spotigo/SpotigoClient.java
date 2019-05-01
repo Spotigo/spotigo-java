@@ -10,10 +10,24 @@ public class SpotigoClient {
 	
 	private String host;
 	private String pass;
+	private Boolean valid;
+
+	private String verify() {
+		String url = String.format("http://%s/track/?pass=%s", this.host, this.pass);
+		JSONObject json = Util.getJSON(url);
+		if (json.containsKey("error")) {
+			return (String) json.get("error");
+		}
+		return null;
+	}
 	
 	public SpotigoClient(String host, String pass) {
 		this.host = host;
 		this.pass = pass;
+		this.valid = this.verify() == null;
+		if (!this.valid) {
+			System.err.println(this.verify());
+		}
 	}
 	
 	public String getHost() {
@@ -202,6 +216,10 @@ public class SpotigoClient {
 		}
 		
 		return data;
+	}
+
+	public Boolean hasValidPassword() {
+		return this.valid;
 	}
 
 }
