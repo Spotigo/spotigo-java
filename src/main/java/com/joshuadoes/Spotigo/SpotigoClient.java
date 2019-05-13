@@ -37,8 +37,16 @@ public class SpotigoClient {
 	public String getPass() {
 		return pass;
 	}
-	
+
 	public Album getAlbumInfo(String url) {
+		return this.getAlbumInfo(url, true);
+	}
+
+	public Album getAlbumInfo(SpotigoGID gid) {
+		return this.getAlbumInfo(gid, true);
+	}
+	
+	public Album getAlbumInfo(String url, Boolean minimal) {
 		Album data = new Album();
 		String regex = "^(https:\\/\\/open.spotify.com\\/album\\/|spotify:album:)([a-zA-Z0-9]+)(.*)$";
 		Pattern p = Pattern.compile(regex);
@@ -60,17 +68,19 @@ public class SpotigoClient {
 		data.title = info.name;
 		data.uri = String.format("spotify:album:%s", albumID);
 		data.artURL = embed.thumbnailURL;
-		data.discs = new ArrayList<Disc>();
 		data.date = info.date;
+		data.discs = new ArrayList<Disc>();
 		
-		for(SpotigoDiscInfo dinfo : info.discs) {
-			data.discs.add(this.getDiscInfo(dinfo));
+		if (!minimal) {
+			for(SpotigoDiscInfo dinfo : info.discs) {
+				data.discs.add(this.getDiscInfo(dinfo));
+			}
 		}
 		
 		return data;
 	}
 	
-	public Album getAlbumInfo(SpotigoGID gid) {
+	public Album getAlbumInfo(SpotigoGID gid, Boolean minimal) {
 		Album data = new Album();
 		String albumID = gid.id;
 		
@@ -85,11 +95,13 @@ public class SpotigoClient {
 		data.title = info.name;
 		data.uri = String.format("spotify:album:%s", albumID);
 		data.artURL = embed.thumbnailURL;
-		data.discs = new ArrayList<Disc>();
 		data.date = info.date;
+		data.discs = new ArrayList<Disc>();
 		
-		for(SpotigoDiscInfo dinfo : info.discs) {
-			data.discs.add(this.getDiscInfo(dinfo));
+		if (!minimal) {
+			for(SpotigoDiscInfo dinfo : info.discs) {
+				data.discs.add(this.getDiscInfo(dinfo));
+			}
 		}
 		
 		return data;
