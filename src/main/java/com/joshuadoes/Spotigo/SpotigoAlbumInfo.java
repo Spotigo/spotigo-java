@@ -1,3 +1,6 @@
+// WARNING
+// Only use to parse FULL albums (All track inclusive)
+
 package com.joshuadoes.Spotigo;
 
 import java.util.ArrayList;
